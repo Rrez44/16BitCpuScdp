@@ -1,0 +1,39 @@
+module dataMemory(
+input wire[15:0] Address,
+input wire[15:0] WriteData,
+input wire MemWrite, 
+input wire MemRead, 
+input wire Clock, 
+output wire[15:0] ReadData
+);
+
+reg[7:0] dataMem[0:127];
+
+initial
+$readmemb("dataMemory.mem", dataMem);
+
+always@(posedge Clock)
+begin
+    if(MemWrite) 
+        begin
+            //bigEndian
+
+          dataMem[Address + 10] <= WriteData[15:8];
+          dataMem[Address + 11] <= WriteData[7:0];
+           end
+end
+
+always@(negedge Clock)
+begin
+$writememb("dataMemory.mem", dataMem);
+end
+
+ 
+   
+  assign ReadData[15:8] = dataMem[Address + 10];
+  assign ReadData[7:0] = dataMem[Address + 11];
+
+
+
+
+endmodule

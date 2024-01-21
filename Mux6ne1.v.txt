@@ -1,0 +1,18 @@
+module mux6ne1(
+    input Hyrja0, // AND
+    input Hyrja1, // ADD
+    input Hyrja2, // OR
+    input Hyrja3, // XOR
+    input Hyrja4, // SLTI
+    input Hyrja5, // Unused
+    input [2:0] S, // Selector
+    output Dalja
+);
+   
+    assign Dalja = (S == 3'b000) ? Hyrja0 : // AND
+                   (S == 3'b100) ? Hyrja1 : // ADD
+                   (S == 3'b010) ? Hyrja2 : // OR
+                   (S == 3'b011) ? Hyrja3 : // XOR
+                   (S == 3'b001) ? Hyrja4 : // SLTI
+                   Hyrja5; // def
+endmodule

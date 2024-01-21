@@ -1,0 +1,39 @@
+module ALUControlUnit(
+    input [1:0] AluOp,
+    input [3:0] opcode,
+    input [1:0] functionCode,
+    output reg [3:0] ALUControl // Updated to 4 bits
+);
+
+always @(*) 
+  begin
+    case (AluOp)
+        2'b00:// lw/sw - Addition
+            ALUControl = 4'b0100; // 0100 for ADD
+        2'b01:// beq - Subtraction
+            ALUControl = 4'b1100; // 1100 for SUB
+        2'b10: // Depends on function code
+            case (functionCode)
+                2'b00: ALUControl = (opcode == 4'b0000) ? 4'b0000 : // AND
+                                    (opcode == 4'b0001) ? 4'b0100 : // ADD
+                  					(opcode == 4'b0010) ? 4'b0110: // sll
+                                    4'bxxxx; // Other operations
+                2'b01: ALUControl = (opcode == 4'b0000) ? 4'b0010 : // OR
+                  					(opcode == 4'b0001) ? 4'b1100 : // SUB
+                  					(opcode == 4'b0010) ? 4'b0111: // sra
+                                    4'bxxxx; // Other operations
+                2'b10: ALUControl = 4'b0011; // XOR
+                // ... Other function codes ...
+            endcase
+        2'b11: // Depends on opcode
+            case (opcode)
+                4'b1001: ALUControl = 4'b0100; // ADDI
+                4'b1010: ALUControl = 4'b1100; // SUBI
+                4'b1011: ALUControl = 4'b0001; // SLTI
+                // ... Other opcodes ...
+            endcase
+
+    endcase
+end
+
+endmodule

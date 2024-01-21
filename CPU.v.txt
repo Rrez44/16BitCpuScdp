@@ -1,0 +1,43 @@
+module cpu_testbench;
+
+    // Testbench Signals
+    reg Clock;
+
+    // Instantiate the CPU module
+    CPU cpu_instance (
+        .Clock(Clock)
+    );
+
+    // Clock Generation
+    always begin
+        #5 Clock = ~Clock; // Generate a clock with a period of 10 ns
+    end
+
+    // Testbench Initialization
+    initial begin
+      	$dumpfile("dump.vcd"); $dumpvars;
+        // Initialize Signals
+        Clock = 0; // Start with a low clock signal
+
+        // Reset the CPU if necessary
+        // ...
+
+        // Load instructions into instruction memory if applicable
+        // ...
+
+        // Write initial values to registers or memory if needed
+        // ...
+
+        // Simulation duration
+        #1000; // Run simulation for 1000 ns, adjust as necessary
+
+        // Add more test cases and scenarios here
+
+        // End simulation
+        $finish;
+    end
+
+    // Optional: Add tasks or functions for specific tests
+    // ...
+
+endmodule

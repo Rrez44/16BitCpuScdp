@@ -1,0 +1,28 @@
+module operation_Selector(
+    input [15:0] A,
+    input [15:0] B,
+    input BNegate,
+  	input Ainvert,
+    input [2:0] ALUOp,
+  	input [3:0]shamt,
+    output Zero,
+  	output [15:0] REZ,
+    output Overflow, 
+    output CarryOut
+    );
+   
+    wire[15:0] operationrez;
+    wire[15:0] slti_;
+    wire[15:0] sll_;
+    wire[15:0] sra_;
+   
+  ALU16 alu(A, B, Ainvert,BNegate, ALUOp, Zero, Overflow, operationrez, CarryOut);
+   
+  SLTI slti(A, B, slti_);
+  left_shift_barrel_shifter sll(A, shamt, sll_);
+  right_shift_barrel_shifter sra(A, shamt, sra_);
+
+   
+  muxOperator mux(operationrez, slti_, sll_,sra_, ALUOp, REZ);
+   
+endmodule

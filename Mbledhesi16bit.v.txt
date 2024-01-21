@@ -1,0 +1,44 @@
+module mbledhesi16(
+    input [15:0] A,
+    input [15:0] B,
+    output [15:0] REZ,
+    input CarryOut
+    );
+
+    wire [14:0] COUT;
+Mbledhesi mbledhesi0 (A[0], B[0], 1'b0, REZ[0], COUT[0]);
+     
+Mbledhesi mbledhesi1 (A[1], B[1], COUT[0], REZ[1], COUT[1]);
+     
+Mbledhesi mbledhesi2 (A[2], B[2], COUT[1], REZ[2], COUT[2]);
+     
+Mbledhesi mbledhesi3 (A[3], B[3], COUT[2], REZ[3], COUT[3]);
+     
+Mbledhesi mbledhesi4 (A[4], B[4], COUT[3], REZ[4], COUT[4]);
+     
+Mbledhesi mbledhesi5 (A[5], B[5], COUT[4], REZ[5], COUT[5]);
+     
+Mbledhesi mbledhesi6 (A[6], B[6], COUT[5], REZ[6], COUT[6]);
+     
+Mbledhesi mbledhesi7 (A[7], B[7], COUT[6], REZ[7], COUT[7]);
+     
+Mbledhesi mbledhesi8 (A[8], B[8], COUT[7], REZ[8], COUT[8]);
+     
+Mbledhesi mbledhesi9 (A[9], B[9], COUT[8], REZ[9], COUT[9]);
+     
+Mbledhesi mbledhesi10 (A[10], B[10], COUT[9], REZ[10], COUT[10]);
+     
+Mbledhesi mbledhesi11 (A[11], B[11], COUT[10], REZ[11], COUT[11]);
+     
+Mbledhesi mbledhesi12 (A[12], B[12], COUT[11], REZ[12], COUT[12]);
+     
+Mbledhesi mbledhesi13 (A[13], B[13], COUT[12], REZ[13], COUT[13]);
+     
+Mbledhesi mbledhesi14 (A[14], B[14], COUT[13], REZ[14], COUT[14]);
+     
+Mbledhesi mbledhesi15 (A[15], B[15], COUT[14], REZ[15], CarryOut);
+
+    
+    
+    
+endmodule
